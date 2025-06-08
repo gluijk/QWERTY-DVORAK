@@ -1,12 +1,16 @@
-# DVORAK
+# Counting characters from text files. QWERTY vs DVORAK
 # www.overfitting.net
-# https://www.overfitting.net/
+# https://www.overfitting.net/2025/06/qwerty-vs-dvorak-contando-frecuencias.html
 
 
+# Extract and count the following 38 characters:
+#   27 letters a-z (including ñ)
+#   10 numbers 0-9
+#   SPACE
 analyze_letters_spaces_numbers <- function(file_path) {
     # Leer archivo con codificación Windows
     text <- tolower(paste(readLines(file_path, warn = FALSE,
-                                    encoding = "latin1"), collapse = ""))
+                    encoding = "latin1"), collapse = ""))
     
     # Reemplazar vocales acentuadas y diéresis por su base
     text <- chartr(
@@ -42,6 +46,8 @@ analyze_letters_spaces_numbers <- function(file_path) {
 names=c("elfindelaeternidad.txt", "citaconrama.txt")
 for (i in 1:length(names)) {
     result=analyze_letters_spaces_numbers(names[i])
+    print(paste0("File '", names[i], "' analyzed:"))
     print(result)
-    write.csv2(result, paste0(names[i], "_stats.csv"), row.names=FALSE)
+    write.csv2(result, paste0(names[i], "_stats.csv"),
+               row.names=FALSE)
 }
